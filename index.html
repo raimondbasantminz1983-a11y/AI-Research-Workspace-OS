@@ -25,14 +25,19 @@ font-family:system-ui;
 
 body{
 background:var(--bg);
-height:100vh;
-overflow:hidden;
 color:var(--text);
+margin:0;
+padding:0;
+width:100%;
+min-height:100vh;
+overflow-x:hidden;
 }
 
 .app{
 display:flex;
-height:100vh;
+width:100%;
+min-height:100vh;
+overflow-x:hidden;
 }
 
 /* LEFT MAIN */
@@ -43,6 +48,8 @@ display:flex;
 flex-direction:column;
 padding:10px;
 gap:10px;
+min-width:0;
+overflow:hidden;
 }
 
 /* TOP BAR */
@@ -137,6 +144,8 @@ box-shadow:var(--shadow);
 padding:20px;
 overflow:auto;
 position:relative;
+width:100%;
+max-width:100%;
 }
 
 .viewer h1{
@@ -153,6 +162,8 @@ line-height:1.8;
 
 .side{
 width:320px;
+max-width:320px;
+flex-shrink:0;
 border-left:2px solid var(--line);
 display:flex;
 flex-direction:column;
@@ -304,7 +315,142 @@ min-height:400px;
 }
 
 }
+html,
+body{
+width:100%;
+min-height:100%;
+overflow-x:hidden;
+}
 
+body{
+margin:0;
+padding:0;
+}
+
+/* FULL APP FIX */
+
+.app{
+width:100%;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* MAIN AREA FIX */
+
+.main{
+min-width:0;
+overflow:hidden;
+}
+
+/* VIEWER FIX */
+
+.viewer{
+width:100%;
+max-width:100%;
+overflow:auto;
+}
+
+/* RIGHT PANEL FIX */
+
+.side{
+flex-shrink:0;
+max-width:320px;
+}
+
+/* MOBILE FIX */
+
+@media(max-width:900px){
+
+body{
+overflow:auto;
+}
+
+.app{
+width:100%;
+max-width:100%;
+overflow-x:hidden;
+flex-direction:column;
+}
+
+.main{
+width:100%;
+padding:8px;
+}
+
+.side{
+width:100%;
+max-width:100%;
+padding:8px;
+border-left:none;
+border-top:2px solid var(--line);
+}
+
+.topbar{
+flex-wrap:wrap;
+height:auto;
+min-height:72px;
+overflow:hidden;
+}
+
+.logo{
+width:100%;
+font-size:18px;
+}
+
+.search{
+min-width:0;
+width:100%;
+}
+
+.settingBar{
+flex-direction:column;
+height:auto;
+}
+
+.tabs{
+width:100%;
+}
+
+.tab{
+width:100%;
+}
+
+.lower{
+flex-direction:column;
+width:100%;
+min-height:300px;
+}
+
+.ads{
+width:100%;
+flex-direction:row;
+overflow:auto;
+}
+
+.control{
+width:100%;
+}
+
+.viewer{
+min-height:420px;
+}
+
+.bottom{
+width:100%;
+overflow-x:auto;
+padding-bottom:14px;
+scrollbar-width:none;
+}
+
+.bottom::-webkit-scrollbar{
+display:none;
+}
+
+.bottom button{
+flex-shrink:0;
+}
+
+}
 </style>
 </head>
 
@@ -534,7 +680,7 @@ let newName = prompt('नया नाम');
 if(!newName) return;
 
 document.querySelector(
-'#tab'+currentWorkspace+' div'
+'#tab'+currentWorkspace+' div:first-child'
 ).innerText = newName;
 
 document.getElementById('workspaceTitle')
@@ -573,9 +719,7 @@ document.documentElement.style
 .setProperty('--text','#fff');
 
 }
-
 }
-
 function updateMatch(){
 
 let a = data.A.length;
@@ -741,7 +885,7 @@ alert('Redo Ready');
 
 }
 
-openWorkspace('A');
+openWorkspace( 'A' );
 
 </script>
 
