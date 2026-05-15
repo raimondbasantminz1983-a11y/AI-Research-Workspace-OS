@@ -1,267 +1,281 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>RBM Workspace OS</title>
+<title>RBM Workspace System</title>
 
 <style>
 
 :root{
---bg:#f4f4f4;
+--bg:#f3f3f3;
 --panel:#ffffff;
---text:#111111;
---border:#d8d8d8;
---active:#1f6fff;
---shadow:rgba(0,0,0,.08);
+--line:#d6d6d6;
+--text:#111;
+--active:#2f7cff;
+--shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:system-ui;
 }
 
 body{
 background:var(--bg);
-font-family:system-ui;
 height:100vh;
 overflow:hidden;
 color:var(--text);
 }
 
+.app{
+display:flex;
+height:100vh;
+}
+
+/* LEFT MAIN */
+
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+padding:10px;
+gap:10px;
+}
+
 /* TOP BAR */
 
 .topbar{
-height:64px;
-background:white;
-border-bottom:1px solid var(--border);
+height:72px;
+background:var(--panel);
+border-radius:18px;
+box-shadow:var(--shadow);
 display:flex;
 align-items:center;
-justify-content:space-between;
-padding:0 14px;
-}
-
-.left-top{
-display:flex;
-align-items:center;
+padding:10px;
 gap:10px;
 }
 
 .logo{
-font-size:18px;
+font-size:20px;
 font-weight:700;
+width:180px;
 }
 
 .search{
-width:220px;
-padding:10px;
-border-radius:12px;
-border:1px solid var(--border);
-outline:none;
-background:#fafafa;
-}
-
-.right-top{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.icon-btn{
-padding:10px 14px;
+flex:1;
+height:45px;
 border:none;
-border-radius:12px;
+outline:none;
+padding:0 15px;
+border-radius:14px;
+background:#ececec;
+font-size:16px;
+}
+
+.iconBtn{
+width:46px;
+height:46px;
+border:none;
+border-radius:14px;
 background:#111;
-color:white;
+color:#fff;
+font-size:18px;
 cursor:pointer;
 }
 
-.match{
-padding:10px 14px;
-background:#f1f1f1;
-border-radius:12px;
+.matchBox{
+width:110px;
+height:50px;
+border-radius:14px;
+background:#ececec;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+font-weight:700;
+}
+
+.themeBtn{
+padding:0 18px;
+height:46px;
+border:none;
+border-radius:14px;
+background:#111;
+color:#fff;
+font-size:15px;
+cursor:pointer;
+}
+
+/* SETTINGS */
+
+.settingBar{
+height:95px;
+display:flex;
+gap:15px;
+}
+
+.settingCard{
+flex:1;
+background:var(--panel);
+border-radius:20px;
+box-shadow:var(--shadow);
+padding:18px;
+font-size:20px;
 font-weight:600;
 }
 
-/* MAIN */
+/* MAIN VIEW */
 
-.main{
-display:flex;
-height:calc(100vh - 64px);
-}
-
-/* SIDEBAR */
-
-.sidebar{
-width:240px;
-background:white;
-border-right:1px solid var(--border);
-padding:12px;
-overflow:auto;
-}
-
-.menu-title{
-font-size:14px;
-font-weight:700;
-margin-bottom:12px;
-opacity:.7;
-}
-
-.side-btn{
-width:100%;
-padding:14px;
-margin-bottom:10px;
-border:none;
-border-radius:16px;
-background:#f4f4f4;
-cursor:pointer;
-text-align:left;
-font-size:15px;
-}
-
-/* CENTER */
-
-.center{
+.viewer{
 flex:1;
+background:var(--panel);
+border-radius:26px;
+box-shadow:var(--shadow);
+padding:20px;
+overflow:auto;
+position:relative;
+}
+
+.viewer h1{
+font-size:38px;
+margin-bottom:10px;
+}
+
+.workspaceText{
+font-size:18px;
+line-height:1.8;
+}
+
+/* RIGHT SIDE */
+
+.side{
+width:320px;
+border-left:2px solid var(--line);
 display:flex;
 flex-direction:column;
+padding:10px;
+gap:10px;
 }
 
-/* WORKSPACE TABS */
+/* A B C */
 
-.workspace-tabs{
-height:72px;
-background:white;
-border-bottom:1px solid var(--border);
+.tabs{
 display:flex;
-align-items:center;
-gap:12px;
-padding:0 15px;
-overflow:auto;
+flex-direction:column;
+gap:10px;
 }
 
-.workspace{
-min-width:170px;
-height:50px;
+.tab{
+height:78px;
+background:var(--panel);
 border-radius:18px;
-border:2px solid transparent;
+box-shadow:var(--shadow);
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:0 14px;
-background:#f5f5f5;
-cursor:pointer;
-transition:.2s;
+padding:0 18px;
+font-size:26px;
 font-weight:700;
+cursor:pointer;
+border:3px solid transparent;
+transition:.2s;
 }
 
-.workspace.active{
+.tab.active{
 border-color:var(--active);
-box-shadow:0 0 14px rgba(31,111,255,.25);
+box-shadow:0 0 12px rgba(47,124,255,.4);
 }
 
-.color-box{
-width:18px;
-height:18px;
+.dot{
+width:24px;
+height:24px;
 border-radius:50%;
 }
 
-/* MAIN WORKSPACE */
+.aDot{ background:#2f7cff; }
+.bDot{ background:#00b84d; }
+.cDot{ background:#ff9900; }
 
-.main-workspace{
+/* LOWER AREA */
+
+.lower{
 flex:1;
-padding:20px;
-overflow:auto;
-background:#fafafa;
-}
-
-.workspace-view{
-background:white;
-min-height:100%;
-border-radius:24px;
-border:1px solid var(--border);
-padding:20px;
-box-shadow:0 4px 20px var(--shadow);
-}
-
-.workspace-title{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:20px;
-}
-
-.workspace-title h2{
-font-size:24px;
-}
-
-/* NOTES */
-
-.note{
-background:#ffffff;
-border:1px solid var(--border);
-border-radius:18px;
-padding:16px;
-margin-bottom:15px;
-line-height:1.7;
-}
-
-.note-buttons{
-margin-top:14px;
 display:flex;
 gap:10px;
-flex-wrap:wrap;
 }
 
-.note-buttons button{
-padding:8px 12px;
-border:none;
-border-radius:10px;
-background:black;
-color:white;
-cursor:pointer;
-}
+/* ADS */
 
-/* VIEWER */
-
-.viewer{
-position:fixed;
-right:20px;
-top:90px;
-width:300px;
-height:240px;
-background:white;
-border:1px solid var(--border);
+.ads{
+width:120px;
+background:var(--panel);
 border-radius:20px;
-padding:15px;
+box-shadow:var(--shadow);
+padding:10px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.adBox{
+height:90px;
+border-radius:16px;
+background:#ececec;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+font-weight:700;
+}
+
+/* CONTROL PANEL */
+
+.control{
+flex:1;
+background:var(--panel);
+border-radius:20px;
+box-shadow:var(--shadow);
+padding:14px;
+display:flex;
+flex-direction:column;
+gap:10px;
 overflow:auto;
-box-shadow:0 4px 20px var(--shadow);
+}
+
+.control button{
+height:46px;
+border:none;
+border-radius:14px;
+background:#111;
+color:#fff;
+font-size:15px;
+cursor:pointer;
 }
 
 /* BOTTOM BAR */
 
-.bottom-bar{
-position:fixed;
-bottom:18px;
-left:50%;
-transform:translateX(-50%);
+.bottom{
+height:80px;
+background:var(--panel);
+border-top:2px solid var(--line);
 display:flex;
+align-items:center;
 gap:10px;
-padding:12px;
-background:white;
-border-radius:20px;
-border:1px solid var(--border);
-box-shadow:0 4px 18px var(--shadow);
-z-index:999;
+padding:10px;
+overflow:auto;
 }
 
-.bottom-bar button{
-padding:12px 15px;
+.bottom button{
+min-width:110px;
+height:52px;
 border:none;
-border-radius:12px;
-background:black;
-color:white;
+border-radius:14px;
+background:#111;
+color:#fff;
+font-size:15px;
 cursor:pointer;
 }
 
@@ -269,158 +283,74 @@ cursor:pointer;
 
 @media(max-width:900px){
 
-.main{
+.app{
 flex-direction:column;
-}
-
-.sidebar{
-width:100%;
-height:120px;
-border-right:none;
-border-bottom:1px solid var(--border);
-display:flex;
-gap:10px;
 overflow:auto;
+height:auto;
 }
 
-.side-btn{
-min-width:160px;
-height:60px;
-margin-bottom:0;
+.side{
+width:100%;
+border-left:none;
+border-top:2px solid var(--line);
+}
+
+.lower{
+min-height:300px;
 }
 
 .viewer{
-display:none;
-}
-
-.search{
-width:120px;
+min-height:400px;
 }
 
 }
 
 </style>
 </head>
+
 <body>
 
-<!-- TOP -->
-
-<div class="topbar">
-
-<div class="left-top">
-
-<div class="logo">
-RBM Workspace OS
-</div>
-
-<input
-class="search"
-placeholder="Search..."
-oninput="searchItems(this.value)"
->
-
-</div>
-
-<div class="right-top">
-
-<button class="icon-btn" onclick="undoAction()">
-↶
-</button>
-
-<button class="icon-btn" onclick="redoAction()">
-↷
-</button>
-
-<div class="match" id="matchBox">
-Match 0%
-</div>
-
-<button class="icon-btn" onclick="toggleTheme()">
-Theme
-</button>
-
-<button class="icon-btn" onclick="toggleMenu()">
-⋮
-</button>
-
-</div>
-
-</div>
+<div class="app">
 
 <!-- MAIN -->
 
 <div class="main">
 
-<!-- SIDEBAR -->
+<!-- TOP -->
 
-<div class="sidebar">
+<div class="topbar">
 
-<div class="menu-title">
-SYSTEM
+<div class="logo">
+आरबीएम वर्कस्पेस
 </div>
 
-<button class="side-btn">
-Search
-</button>
+<input class="search" placeholder="खोज..." oninput="searchText(this.value)">
 
-<button class="side-btn">
-Settings
-</button>
+<button class="iconBtn" onclick="undoAction()">↶</button>
 
-<button class="side-btn">
-Backup
-</button>
+<button class="iconBtn" onclick="redoAction()">↷</button>
 
-<button class="side-btn">
-Theme
-</button>
+<div class="matchBox">
+<div>मिलान</div>
+<div id="matchValue">0%</div>
+</div>
 
-<button class="side-btn">
-Help
-</button>
-
-<button class="side-btn">
-Recovery
+<button class="themeBtn" onclick="toggleTheme()">
+विषय
 </button>
 
 </div>
 
-<!-- CENTER -->
+<!-- SETTINGS -->
 
-<div class="center">
+<div class="settingBar">
 
-<!-- WORKSPACE SWITCH -->
-
-<div class="workspace-tabs" id="workspaceTabs">
-
+<div class="settingCard">
+खोज
 </div>
 
-<!-- ACTIVE WORKSPACE -->
-
-<div class="main-workspace">
-
-<div class="workspace-view">
-
-<div class="workspace-title">
-
-<h2 id="workspaceName">
-Workspace A
-</h2>
-
-<button class="icon-btn" onclick="renameWorkspace()">
-Rename
-</button>
-
-</div>
-
-<div id="workspaceContent">
-
-</div>
-
-</div>
-
-</div>
-
+<div class="settingCard">
+सेटिंग्स
 </div>
 
 </div>
@@ -429,51 +359,125 @@ Rename
 
 <div class="viewer">
 
-<h3>Viewer</h3>
+<h1 id="workspaceTitle">कार्यक्षेत्र A</h1>
 
-<br>
+<div class="workspaceText" id="viewerText">
 
-<div id="viewerContent">
-Ready...
+यह मुख्य कार्यक्षेत्र है।  
+यहाँ A / B / C का डेटा खुलेगा।
+
 </div>
 
 </div>
 
 <!-- BOTTOM -->
 
-<div class="bottom-bar">
+<div class="bottom">
 
-<button onclick="addNote()">
-Add
+<button onclick="addText()">जोड़ना</button>
+
+<button onclick="addPhoto()">तस्वीर</button>
+
+<button onclick="addVideo()">वीडियो</button>
+
+<button onclick="voiceInput()">आवाज़</button>
+
+<button onclick="copyText()">📋</button>
+
+<button onclick="speakText()">🔊</button>
+
+<button onclick="exportData()">निर्यात</button>
+
+<button onclick="translateText()">भाषा</button>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="side">
+
+<!-- A B C -->
+
+<div class="tabs">
+
+<div class="tab active" id="tabA" onclick="openWorkspace('A')">
+<div>A</div>
+<div class="dot aDot"></div>
+</div>
+
+<div class="tab" id="tabB" onclick="openWorkspace('B')">
+<div>B</div>
+<div class="dot bDot"></div>
+</div>
+
+<div class="tab" id="tabC" onclick="openWorkspace('C')">
+<div>C</div>
+<div class="dot cDot"></div>
+</div>
+
+</div>
+
+<!-- LOWER -->
+
+<div class="lower">
+
+<!-- ADS -->
+
+<div class="ads">
+
+<div class="adBox">
+AD
+</div>
+
+<div class="adBox">
+MEDIA
+</div>
+
+<div class="adBox">
+THUMB
+</div>
+
+</div>
+
+<!-- CONTROL -->
+
+<div class="control">
+
+<button onclick="renameWorkspace()">
+नाम बदलें
 </button>
 
-<button>
-Photo
+<button onclick="selectAllText()">
+Select All
 </button>
 
-<button>
-Video
+<button onclick="cutText()">
+Cut
 </button>
 
-<button>
-Voice
+<button onclick="pasteText()">
+Paste
 </button>
 
-<button>
-🎤
+<button onclick="saveBackup()">
+Backup
 </button>
 
-<button>
-🔊
+<button onclick="helpSystem()">
+Help
 </button>
 
-<button onclick="exportData()">
-Export
+<button onclick="recoverySystem()">
+Recovery
 </button>
 
-<button onclick="importData()">
-Import
-</button>
+</div>
+
+</div>
+
+</div>
 
 </div>
 
@@ -481,565 +485,263 @@ Import
 
 let currentWorkspace = 'A';
 
-let dark = false;
-
-let historyStack = [];
-let redoStack = [];
-
-let workspaceNames = {
-A:'Workspace A',
-B:'Workspace B',
-C:'Workspace C'
+let data = {
+A:'',
+B:'',
+C:''
 };
 
-let workspaceColors = {
-A:'#2f7cff',
-B:'#00aa55',
-C:'#cc3333'
-};
+function openWorkspace(name){
 
-let workspaceFiles = {
-A:[],
-B:[],
-C:[]
-};
+currentWorkspace = name;
 
-/* SAVE */
+document.querySelectorAll('.tab')
+.forEach(tab=>tab.classList.remove('active'));
 
-function saveData(){
+document
+.getElementById('tab'+name)
+.classList.add('active');
 
-localStorage.setItem(
-'RBM_WORKSPACE_OS',
-JSON.stringify({
-workspaceFiles,
-workspaceNames,
-workspaceColors
-})
-);
+document.getElementById('workspaceTitle')
+.innerText = 'कार्यक्षेत्र ' + name;
 
-}
-
-/* RESTORE */
-
-function restoreData(){
-
-const saved =
-localStorage.getItem(
-'RBM_WORKSPACE_OS'
-);
-
-if(saved){
-
-const data =
-JSON.parse(saved);
-
-workspaceFiles =
-data.workspaceFiles;
-
-workspaceNames =
-data.workspaceNames;
-
-workspaceColors =
-data.workspaceColors;
-
-}
-
-}
-
-/* RENDER TABS */
-
-function renderTabs(){
-
-const tabs =
-document.getElementById(
-'workspaceTabs'
-);
-
-tabs.innerHTML='';
-
-['A','B','C'].forEach(key=>{
-
-const div =
-document.createElement('div');
-
-div.className =
-'workspace ' +
-(currentWorkspace===key
-?'active':'');
-
-div.ondblclick=()=>renameKey(key);
-
-div.onclick=()=>switchWorkspace(key);
-
-div.innerHTML=`
-
-<span>
-${workspaceNames[key]}
-</span>
-
-<div
-class="color-box"
-style="
-background:
-${workspaceColors[key]}
-"
-></div>
-
-`;
-
-tabs.appendChild(div);
-
-});
-
-}
-
-/* SWITCH */
-
-function switchWorkspace(key){
-
-currentWorkspace = key;
-
-renderTabs();
-
-renderWorkspace();
+document.getElementById('viewerText')
+.innerText = data[name] || 'खाली कार्यक्षेत्र';
 
 updateMatch();
 
 }
 
-/* RENDER WORKSPACE */
+function addText(){
 
-function renderWorkspace(){
-
-document.getElementById(
-'workspaceName'
-).innerText =
-workspaceNames[currentWorkspace];
-
-const area =
-document.getElementById(
-'workspaceContent'
-);
-
-area.innerHTML='';
-
-workspaceFiles[currentWorkspace]
-.forEach((item,index)=>{
-
-const div =
-document.createElement('div');
-
-div.className='note';
-
-div.innerHTML=`
-
-<h3>${item.title}</h3>
-
-<br>
-
-<div>${item.text}</div>
-
-<div class="note-buttons">
-
-<button
-onclick="
-openItem(${index})
-">
-Open
-</button>
-
-<button
-onclick="
-deleteItem(${index})
-">
-Delete
-</button>
-
-</div>
-
-`;
-
-area.appendChild(div);
-
-});
-
-}
-
-/* ADD */
-
-function addNote(){
-
-const text =
-prompt('Enter Note');
+let text = prompt('टेक्स्ट लिखें');
 
 if(!text) return;
 
-historyStack.push(
-JSON.stringify(workspaceFiles)
-);
+data[currentWorkspace] += '\n' + text;
 
-workspaceFiles[currentWorkspace]
-.push({
-title:'Note',
-text,
-time:Date.now()
-});
-
-saveData();
-
-renderWorkspace();
+document.getElementById('viewerText')
+.innerText = data[currentWorkspace];
 
 updateMatch();
 
 }
-
-/* OPEN */
-
-function openItem(index){
-
-const item =
-workspaceFiles[currentWorkspace][index];
-
-document.getElementById(
-'viewerContent'
-).innerHTML=`
-
-<h2>${item.title}</h2>
-
-<br>
-
-${item.text}
-
-`;
-
-}
-
-/* DELETE */
-
-function deleteItem(index){
-
-historyStack.push(
-JSON.stringify(workspaceFiles)
-);
-
-workspaceFiles[currentWorkspace]
-.splice(index,1);
-
-saveData();
-
-renderWorkspace();
-
-updateMatch();
-
-}
-
-/* RENAME */
 
 function renameWorkspace(){
 
-const name =
-prompt(
-'Rename Workspace'
-);
+let newName = prompt('नया नाम');
 
-if(!name) return;
+if(!newName) return;
 
-workspaceNames[currentWorkspace]
-= name;
+document.querySelector(
+'#tab'+currentWorkspace+' div'
+).innerText = newName;
 
-saveData();
-
-renderTabs();
-
-renderWorkspace();
+document.getElementById('workspaceTitle')
+.innerText = newName;
 
 }
-
-function renameKey(key){
-
-const name =
-prompt(
-'New Workspace Name'
-);
-
-if(!name) return;
-
-workspaceNames[key]
-= name;
-
-saveData();
-
-renderTabs();
-
-renderWorkspace();
-
-}
-
-/* SEARCH */
-
-function searchItems(q){
-
-q=q.toLowerCase();
-
-const notes =
-document.querySelectorAll('.note');
-
-notes.forEach(note=>{
-
-if(
-note.innerText
-.toLowerCase()
-.includes(q)
-){
-
-note.style.display='block';
-
-}else{
-
-note.style.display='none';
-
-}
-
-});
-
-}
-
-/* THEME */
 
 function toggleTheme(){
 
-dark=!dark;
+const dark = document.body.dataset.dark;
 
 if(dark){
 
-document.documentElement
-.style.setProperty(
-'--bg',
-'#0f0f0f'
-);
+document.body.dataset.dark = '';
 
-document.documentElement
-.style.setProperty(
-'--panel',
-'#181818'
-);
+document.documentElement.style
+.setProperty('--bg','#f3f3f3');
 
-document.documentElement
-.style.setProperty(
-'--text',
-'#ffffff'
-);
+document.documentElement.style
+.setProperty('--panel','#ffffff');
 
-document.documentElement
-.style.setProperty(
-'--border',
-'#333333'
-);
-
-document.body.style.color='white';
+document.documentElement.style
+.setProperty('--text','#111');
 
 }else{
 
-document.documentElement
-.style.setProperty(
-'--bg',
-'#f4f4f4'
-);
+document.body.dataset.dark = '1';
 
-document.documentElement
-.style.setProperty(
-'--panel',
-'#ffffff'
-);
+document.documentElement.style
+.setProperty('--bg','#0f0f0f');
 
-document.documentElement
-.style.setProperty(
-'--text',
-'#111111'
-);
+document.documentElement.style
+.setProperty('--panel','#181818');
 
-document.documentElement
-.style.setProperty(
-'--border',
-'#d8d8d8'
-);
-
-document.body.style.color='black';
+document.documentElement.style
+.setProperty('--text','#fff');
 
 }
 
 }
-
-/* MATCH */
 
 function updateMatch(){
 
-const a =
-workspaceFiles.A.length;
-
-const b =
-workspaceFiles.B.length;
-
-const c =
-workspaceFiles.C.length;
-
-const total =
-a+b+c;
+let a = data.A.length;
+let b = data.B.length;
 
 let percent = 0;
 
-if(total>0){
+if(a && b){
 
-percent =
-Math.floor(
-(
-workspaceFiles[currentWorkspace]
-.length
-/
-total
-)*100
+percent = Math.floor(
+(Math.min(a,b)/Math.max(a,b))*100
 );
 
 }
 
-document.getElementById(
-'matchBox'
-).innerText =
-'Match ' + percent + '%';
+document.getElementById('matchValue')
+.innerText = percent + '%';
 
 }
 
-/* UNDO */
+function copyText(){
 
-function undoAction(){
-
-if(!historyStack.length)
-return;
-
-redoStack.push(
-JSON.stringify(workspaceFiles)
+navigator.clipboard.writeText(
+data[currentWorkspace]
 );
 
-workspaceFiles =
-JSON.parse(
-historyStack.pop()
-);
-
-saveData();
-
-renderWorkspace();
+alert('Copied');
 
 }
 
-/* REDO */
+function cutText(){
 
-function redoAction(){
-
-if(!redoStack.length)
-return;
-
-historyStack.push(
-JSON.stringify(workspaceFiles)
+navigator.clipboard.writeText(
+data[currentWorkspace]
 );
 
-workspaceFiles =
-JSON.parse(
-redoStack.pop()
-);
+data[currentWorkspace]='';
 
-saveData();
-
-renderWorkspace();
+document.getElementById('viewerText')
+.innerText='';
 
 }
 
-/* EXPORT */
+async function pasteText(){
+
+let txt = await navigator.clipboard.readText();
+
+data[currentWorkspace]+=txt;
+
+document.getElementById('viewerText')
+.innerText=data[currentWorkspace];
+
+}
+
+function selectAllText(){
+
+alert('Select All Ready');
+
+}
+
+function searchText(value){
+
+document.getElementById('viewerText')
+.style.background =
+value ? '#fff8c4' : 'transparent';
+
+}
 
 function exportData(){
 
-const blob =
-new Blob([
+const blob = new Blob(
+[JSON.stringify(data)],
+{type:'application/json'}
+);
 
-JSON.stringify(
-workspaceFiles,
-null,
-2
-)
+const a = document.createElement('a');
 
-],{
+a.href = URL.createObjectURL(blob);
 
-type:'application/json'
-
-});
-
-const a =
-document.createElement('a');
-
-a.href =
-URL.createObjectURL(blob);
-
-a.download =
-'RBM-Workspace.json';
+a.download = 'workspace.json';
 
 a.click();
 
 }
 
-/* IMPORT */
+function translateText(){
 
-function importData(){
-
-const input =
-document.createElement('input');
-
-input.type='file';
-
-input.onchange=e=>{
-
-const file =
-e.target.files[0];
-
-const reader =
-new FileReader();
-
-reader.onload=()=>{
-
-workspaceFiles =
-JSON.parse(reader.result);
-
-saveData();
-
-renderWorkspace();
-
-updateMatch();
-
-};
-
-reader.readAsText(file);
-
-};
-
-input.click();
+alert('Translate System Ready');
 
 }
 
-/* MENU */
+function saveBackup(){
 
-function toggleMenu(){
-
-alert(
-'Menu:\\n\\nNew\\nSave\\nSave As\\nRename\\nDelete\\nImport\\nExport\\nHistory\\nShare\\nClose'
+localStorage.setItem(
+'RBM_WORKSPACE',
+JSON.stringify(data)
 );
 
+alert('Backup Saved');
+
 }
 
-restoreData();
+function recoverySystem(){
 
-renderTabs();
+const saved = localStorage
+.getItem('RBM_WORKSPACE');
 
-renderWorkspace();
+if(saved){
 
-updateMatch();
+data = JSON.parse(saved);
+
+openWorkspace(currentWorkspace);
+
+alert('Recovered');
+
+}
+
+}
+
+function helpSystem(){
+
+alert('RBM Workspace Help Ready');
+
+}
+
+function addPhoto(){
+
+alert('Photo System Ready');
+
+}
+
+function addVideo(){
+
+alert('Video System Ready');
+
+}
+
+function voiceInput(){
+
+alert('Voice Input Ready');
+
+}
+
+function speakText(){
+
+const speech = new SpeechSynthesisUtterance(
+data[currentWorkspace]
+);
+
+speechSynthesis.speak(speech);
+
+}
+
+function undoAction(){
+
+alert('Undo Ready');
+
+}
+
+function redoAction(){
+
+alert('Redo Ready');
+
+}
+
+openWorkspace('A');
 
 </script>
 
