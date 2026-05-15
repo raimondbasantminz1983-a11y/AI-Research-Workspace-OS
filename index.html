@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#111111" />
+<link rel="manifest" href="manifest.json" />
+<title>AI Research Workspace OS</title>
+
+<style>
+
+:root{
+--bg:#0f0f0f;
+--panel:#181818;
+--border:#2f2f2f;
+--text:#ffffff;
+--accent:#00d5ff;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:system-ui,sans-serif;
+overflow:hidden;
+height:100vh;
+}
+
+#app{
+display:flex;
+height:100vh;
+gap:10px;
+padding:10px;
+}
+
+.workspace{
+flex:1;
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:20px;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+}
+
+.header{
+height:60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 15px;
+border-bottom:1px solid var(--border);
+background:#151515;
+}
+
+.content{
+flex:1;
+overflow:auto;
+padding:15px;
+}
+
+.item{
+background:#202020;
+padding:12px;
+border-radius:14px;
+margin-bottom:12px;
+line-height:1.7;
+}
+
+.toolbar{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:10px;
+background:#151515;
+padding:10px;
+border-radius:20px;
+border:1px solid var(--border);
+z-index:99999;
+}
+
+button{
+padding:10px 14px;
+border:none;
+border-radius:12px;
+background:#242424;
+color:white;
+cursor:pointer;
+}
+
+textarea{
+width:100%;
+height:120px;
+background:#111;
+color:white;
+border:1px solid #333;
+border-radius:12px;
+padding:10px;
+resize:none;
+}
+
+#viewer{
+position:fixed;
+right:20px;
+top:20px;
+width:320px;
+height:240px;
+background:#151515;
+border:1px solid var(--border);
+border-radius:20px;
+padding:12px;
+overflow:auto;
+z-index:99999;
+}
+
+@media(max-width:900px){
+#app{
+flex-direction:column;
+overflow:auto;
+height:auto;
+}
+.workspace{
+min-height:70vh;
+}
+}
+
+</style>
+</head>
+<body>
+
+<div id="app">
+
+<div class="workspace" id="workspaceA">
+<div class="header">
+<h3>Workspace A</h3>
+<button onclick="clearWorkspace('A')">Clear</button>
+</div>
+<div class="content" id="contentA"></div>
+</div>
+
+<div class="workspace" id="workspaceB">
+<div class="header">
+<h3>Workspace B</h3>
+<button onclick="clearWorkspace('B')">Clear</button>
+</div>
+<div class="content" id="contentB"></div>
+</div>
+
+<div class="workspace" id="workspaceC">
+<div class="header">
+<h3>Workspace C</h3>
+<button onclick="clearWorkspace('C')">Clear</button>
+</div>
+<div class="content" id="contentC"></div>
+</div>
+
+</div>
+
+<div id="viewer">
+<h3>Viewer</h3>
+<div id="viewerContent">Ready</div>
+</div>
+
+<div class="toolbar">
+<button onclick="addItem('A')">Add A</button>
+<button onclick="addItem('B')">Add B</button>
+<button onclick="addItem('C')">Add C</button>
+<button onclick="exportData()">Export</button>
+<button onclick="importData()">Import</button>
+<button onclick="toggleTheme()">Theme</button>
+<button onclick="runOptimizer()">Optimize</button>
+</div>
+
+<script>
+
+let workspaceFiles = {
+A:[],
+B:[],
+C:[]
+};
+
+function saveData(){
+localStorage.setItem(
+'workspaceFiles',
+JSON.stringify(workspaceFiles)
+);
+}
+
+function restoreData(){
+const saved = localStorage.getItem('workspaceFiles');
+if(saved){
+workspaceFiles = JSON.parse(saved);
+}
+}
+
+function render(){
+['A','B','C'].forEach(name=>{
+const area = document.getElementById('content'+name);
+area.innerHTML = '';
+
+workspaceFiles[name].forEach((item,index)=>{
+
+const div = document.createElement('div');
+div.className = 'item';
+div.draggable = true;
+
+div.innerHTML = `
+<b>${item.title}</b>
+<br><br>
+${item.text}
+<br><br>
+<button onclick="previewItem('${name}',${index})">Open</button>
+<button onclick="moveItem('${name}',${index})">Move</button>
+<button onclick="deleteItem('${name}',${index})">Delete</button>
+`;
+
+area.appendChild(div);
+
+});
+});
+}
+
+function addItem(workspace){
+
+const text = prompt('Enter Text');
+if(!text) return;
+
+workspaceFiles[workspace].push({
+title:'Note',
+text,
+time:Date.now()
+});
+
+saveData();
+render();
+
+}
+
+function deleteItem(workspace,index){
+workspaceFiles[workspace].splice(index,1);
+saveData();
+render();
+}
+
+function moveItem(workspace,index){
+
+const target = prompt('Move To: A/B/C');
+if(!target) return;
+
+const item = workspaceFiles[workspace][index];
+workspaceFiles[target].push(item);
+
+saveData();
+render();
+
+}
+
+function previewItem(workspace,index){
+
+const item = workspaceFiles[workspace][index];
+
+viewerContent.innerHTML = `
+<h3>${item.title}</h3>
+<br>
+${item.text}
+`;
+
+}
+
+function clearWorkspace(name){
+if(!confirm('Clear Workspace?')) return;
+workspaceFiles[name] = [];
+saveData();
+render();
+}
+
+function exportData(){
+
+const blob = new Blob([
+JSON.stringify(workspaceFiles,null,2)
+],{
+type:'application/json'
+});
+
+const a = document.createElement('a');
+a.href = URL.createObjectURL(blob);
+a.download = 'workspace-export.json';
+a.click();
+
+}
+
+function importData(){
+
+const input = document.createElement('input');
+input.type = 'file';
+
+input.onchange = e=>{
+
+const file = e.target.files[0];
+const reader = new FileReader();
+
+reader.onload = ()=>{
+workspaceFiles = JSON.parse(reader.result);
+saveData();
+render();
+};
+
+reader.readAsText(file);
+
+};
+
+input.click();
+
+}
+
+function toggleTheme(){
+
+const dark = getComputedStyle(document.body)
+.getPropertyValue('--bg') === '#0f0f0f';
+
+if(dark){
+
+document.documentElement.style.setProperty('--bg','#f1f1f1');
+document.documentElement.style.setProperty('--panel','#ffffff');
+document.documentElement.style.setProperty('--text','#000000');
+
+}else{
+
+document.documentElement.style.setProperty('--bg','#0f0f0f');
+document.documentElement.style.setProperty('--panel','#181818');
+document.documentElement.style.setProperty('--text','#ffffff');
+
+}
+
+}
+
+function runOptimizer(){
+
+['A','B','C'].forEach(name=>{
+workspaceFiles[name] = workspaceFiles[name]
+.filter(Boolean);
+});
+
+saveData();
+render();
+
+alert('Optimization Complete');
+
+}
+
+window.addEventListener('beforeunload',()=>{
+saveData();
+});
+
+restoreData();
+render();
+
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register('./service-worker.js');
+}
+
+</script>
+</body>
+</html>
