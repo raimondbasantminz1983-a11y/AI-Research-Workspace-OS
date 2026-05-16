@@ -467,17 +467,17 @@ flex-shrink:0;
 <div class="topbar">
 
 <div class="logo">
-आरबीएम वर्कस्पेस
+RBM WORKSPACE
 </div>
 
-<input class="search" placeholder="खोज..." oninput="searchText(this.value)">
+<input class="search" placeholder="search..." oninput="searchText(this.value)">
 
 <button class="iconBtn" onclick="undoAction()">↶</button>
 
 <button class="iconBtn" onclick="redoAction()">↷</button>
 
 <div class="matchBox">
-<div>मिलान</div>
+<div>match</div>
 <div id="matchValue">0%</div>
 </div>
 
@@ -505,7 +505,7 @@ flex-shrink:0;
 
 <div class="viewer">
 
-<h1 id="workspaceTitle">कार्यक्षेत्र A</h1>
+<h1 id="workspaceTitle">Workspace A</h1>
 
 <div class="workspaceText" id="viewerText">
 
@@ -520,21 +520,21 @@ flex-shrink:0;
 
 <div class="bottom">
 
-<button onclick="addText()">जोड़ना</button>
+<button onclick="addText()">Add</button>
 
-<button onclick="addPhoto()">तस्वीर</button>
+<button onclick="addPhoto()">Image</button>
 
-<button onclick="addVideo()">वीडियो</button>
+<button onclick="addVideo()">Video</button>
 
-<button onclick="voiceInput()">आवाज़</button>
+<button onclick="voiceInput()">Voice</button>
 
 <button onclick="copyText()">📋</button>
 
 <button onclick="speakText()">🔊</button>
 
-<button onclick="exportData()">निर्यात</button>
+<button onclick="exportData()">Export</button>
 
-<button onclick="translateText()">भाषा</button>
+<button onclick="translateText()">Language</button>
 
 </div>
 
@@ -592,7 +592,7 @@ THUMB
 <div class="control">
 
 <button onclick="renameWorkspace()">
-नाम बदलें
+Rename
 </button>
 
 <button onclick="selectAllText()">
@@ -649,10 +649,10 @@ document
 .classList.add('active');
 
 document.getElementById('workspaceTitle')
-.innerText = 'कार्यक्षेत्र ' + name;
+.innerText = 'Workspace' + name;
 
 document.getElementById('viewerText')
-.innerText = data[name] || 'खाली कार्यक्षेत्र';
+.innerText = data[name] || 'Empty Workspace';
 
 updateMatch();
 
@@ -660,7 +660,7 @@ updateMatch();
 
 function addText(){
 
-let text = prompt('टेक्स्ट लिखें');
+let text = prompt('Add Text here');
 
 if(!text) return;
 
@@ -675,7 +675,7 @@ updateMatch();
 
 function renameWorkspace(){
 
-let newName = prompt('नया नाम');
+let newName = prompt('New Name');
 
 if(!newName) return;
 
