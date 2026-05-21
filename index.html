@@ -35,8 +35,6 @@ display:flex;
 height:100vh;
 }
 
-/* LEFT MAIN */
-
 .main{
 flex:1;
 display:flex;
@@ -44,8 +42,6 @@ flex-direction:column;
 padding:10px;
 gap:10px;
 }
-
-/* TOP BAR */
 
 .topbar{
 height:72px;
@@ -109,8 +105,6 @@ font-size:15px;
 cursor:pointer;
 }
 
-/* SETTINGS */
-
 .settingBar{
 height:95px;
 display:flex;
@@ -127,8 +121,6 @@ font-size:20px;
 font-weight:600;
 }
 
-/* MAIN VIEW */
-
 .viewer{
 flex:1;
 background:var(--panel);
@@ -138,22 +130,18 @@ padding:20px;
 overflow:auto;
 position:relative;
 width:100%;
-max-width: 100%;
+max-width:100%;
 scroll-behavior:smooth;
 }
-
-/*ADD THIS*/
 
 .workspaceText{
 font-size:18px;
 line-height:1.8;
-overflow: auto;
+overflow:auto;
 white-space:pre-wrap;
 word-break:break-word;
 padding-bottom:20px;
 }
-
-/* RIGHT SIDE */
 
 .side{
 width:320px;
@@ -169,9 +157,7 @@ display:flex;
 flex-direction:column;
 gap:10px;
 flex:1;
-}  
-
-/* A B C */
+}
 
 .tab{
 flex:1;
@@ -191,7 +177,6 @@ border:3px solid transparent;
 transition:.2s;
 overflow:auto;
 position:relative;
-
 }
 
 .tab.active{
@@ -199,7 +184,7 @@ border-color:var(--active);
 box-shadow:0 0 12px rgba(47,124,255,.4);
 }
 
-.preview {
+.preview{
 margin-top:12px;
 font-size:14px;
 font-weight:400;
@@ -219,15 +204,11 @@ border-radius:50%;
 .bDot{ background:#00b84d; }
 .cDot{ background:#ff9900; }
 
-/* LOWER AREA */
-
 .lower{
 flex:1;
 display:flex;
 gap:10px;
 }
-
-/* ADS */
 
 .ads{
 width:120px;
@@ -251,8 +232,6 @@ font-size:14px;
 font-weight:700;
 }
 
-/* CONTROL PANEL */
-
 .control{
 flex:1;
 background:var(--panel);
@@ -275,8 +254,6 @@ font-size:15px;
 cursor:pointer;
 }
 
-/* BOTTOM BAR */
-
 .bottom{
 height:80px;
 background:var(--panel);
@@ -298,8 +275,6 @@ color:#fff;
 font-size:15px;
 cursor:pointer;
 }
-
-/* MOBILE */
 
 @media(max-width:900px){
 
@@ -332,11 +307,7 @@ min-height:400px;
 
 <div class="app">
 
-<!-- MAIN -->
-
 <div class="main">
-
-<!-- TOP -->
 
 <div class="topbar">
 
@@ -361,8 +332,6 @@ Subject
 
 </div>
 
-<!-- SETTINGS -->
-
 <div class="settingBar">
 
 <div class="settingCard">
@@ -375,22 +344,18 @@ Setting
 
 </div>
 
-<!-- VIEWER -->
-
 <div class="viewer">
 
 <h1 id="workspaceTitle">Workspace A</h1>
 
 <div class="workspaceText" id="viewerText">
 
-यह मुख्य कार्यक्षेत्र है।  
+यह मुख्य कार्यक्षेत्र है।
 यहाँ A / B / C का डेटा खुलेगा।
 
 </div>
 
 </div>
-
-<!-- BOTTOM -->
 
 <div class="bottom">
 
@@ -414,11 +379,7 @@ Setting
 
 </div>
 
-<!-- RIGHT -->
-
 <div class="side">
-
-<!-- A B C -->
 
 <div class="tabs">
 
@@ -433,7 +394,7 @@ Setting
 
 </div>
 
-<div class="tab active" id="tabB" onclick="openWorkspace('B')">
+<div class="tab" id="tabB" onclick="openWorkspace('B')">
 
 <div style="display:flex;justify-content:space-between;width:100%;">
 <div class="tabName">B</div>
@@ -444,7 +405,7 @@ Setting
 
 </div>
 
-<div class="tab active" id="tabC" onclick="openWorkspace('C')">
+<div class="tab" id="tabC" onclick="openWorkspace('C')">
 
 <div style="display:flex;justify-content:space-between;width:100%;">
 <div class="tabName">C</div>
@@ -457,59 +418,31 @@ Setting
 
 </div>
 
-<!-- LOWER -->
-
 <div class="lower">
-
-<!-- ADS -->
 
 <div class="ads">
 
-<div class="adBox">
-AD
-</div>
-
-<div class="adBox">
-MEDIA
-</div>
-
-<div class="adBox">
-THUMB
-</div>
+<div class="adBox">AD</div>
+<div class="adBox">MEDIA</div>
+<div class="adBox">THUMB</div>
 
 </div>
-
-<!-- CONTROL -->
 
 <div class="control">
 
-<button onclick="renameWorkspace()">
-Rename
-</button>
+<button onclick="renameWorkspace()">Rename</button>
 
-<button onclick="selectAllText()">
-Select All
-</button>
+<button onclick="selectAllText()">Select All</button>
 
-<button onclick="cutText()">
-Cut
-</button>
+<button onclick="cutText()">Cut</button>
 
-<button onclick="pasteText()">
-Paste
-</button>
+<button onclick="pasteText()">Paste</button>
 
-<button onclick="saveBackup()">
-Backup
-</button>
+<button onclick="saveBackup()">Backup</button>
 
-<button onclick="helpSystem()">
-Help
-</button>
+<button onclick="helpSystem()">Help</button>
 
-<button onclick="recoverySystem()">
-Recovery
-</button>
+<button onclick="recoverySystem()">Recovery</button>
 
 </div>
 
@@ -540,7 +473,7 @@ function openWorkspace(name){
 currentWorkspace = name;
 
 document.querySelectorAll('.tab')
-.forEach(tab=>tab.classList.remove('active'));
+.forEach(tab => tab.classList.remove('active'));
 
 document
 .getElementById('tab'+name)
@@ -567,12 +500,11 @@ data[currentWorkspace] += '\n' + text;
 document.getElementById('viewerText')
 .innerText = data[currentWorkspace];
 
-updateMatch();
-
 updatePreview();
 
-}
+updateMatch();
 
+}
 
 function updatePreview(){
 
@@ -586,25 +518,21 @@ document.getElementById('previewC').innerText =
 data.C || 'Empty';
 
 }
-updatePreview();
 
 function renameWorkspace(){
 
-let newName = prompt('New');
+let newName = prompt('New Workspace Name');
 
 if(!newName) return;
 
-workspaceNames[currentWorkspace] =
-newName;
-
+workspaceNames[currentWorkspace] = newName;
 
 document.querySelector(
-'#tab'+currentWorkspace+'  .tabName'
+'#tab'+currentWorkspace+' .tabName'
 ).innerText = newName;
 
 document.getElementById('workspaceTitle')
 .innerText = newName;
-
 
 }
 
@@ -678,10 +606,10 @@ navigator.clipboard.writeText(
 data[currentWorkspace]
 );
 
-data[currentWorkspace]='';
+data[currentWorkspace] = '';
 
 document.getElementById('viewerText')
-.innerText='';
+.innerText = '';
 
 updatePreview();
 
@@ -693,10 +621,14 @@ async function pasteText(){
 
 let txt = await navigator.clipboard.readText();
 
-data[currentWorkspace]+=txt;
+data[currentWorkspace] += txt;
 
 document.getElementById('viewerText')
-.innerText=data[currentWorkspace];
+.innerText = data[currentWorkspace];
+
+updatePreview();
+
+updateMatch();
 
 }
 
@@ -741,7 +673,10 @@ function saveBackup(){
 
 localStorage.setItem(
 'RBM_WORKSPACE',
-JSON.stringify(data)
+JSON.stringify({
+data,
+workspaceNames
+})
 );
 
 alert('Backup Saved');
@@ -755,7 +690,21 @@ const saved = localStorage
 
 if(saved){
 
-data = JSON.parse(saved);
+const parsed = JSON.parse(saved);
+
+data = parsed.data || data;
+
+workspaceNames =
+parsed.workspaceNames || workspaceNames;
+
+document.querySelector('#tabA .tabName')
+.innerText = workspaceNames.A;
+
+document.querySelector('#tabB .tabName')
+.innerText = workspaceNames.B;
+
+document.querySelector('#tabC .tabName')
+.innerText = workspaceNames.C;
 
 openWorkspace(currentWorkspace);
 
@@ -791,7 +740,8 @@ alert('Voice Input Ready');
 
 function speakText(){
 
-const speech = new SpeechSynthesisUtterance(
+const speech =
+new SpeechSynthesisUtterance(
 data[currentWorkspace]
 );
 
@@ -810,6 +760,8 @@ function redoAction(){
 alert('Redo Ready');
 
 }
+
+updatePreview();
 
 openWorkspace('A');
 
